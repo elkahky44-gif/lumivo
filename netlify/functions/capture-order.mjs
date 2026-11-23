@@ -27,13 +27,24 @@ export default async (req) => {
     const r = await fetch(base() + '/v2/checkout/orders/' + encodeURIComponent(orderID) + '/capture', { method: 'POST', headers: { Authorization: 'Bearer ' + t, 'Content-Type': 'application/json' } });
     const d = await r.json();
     const pu = d.purchase_units?.[0], cap = pu?.payments?.captures?.[0];
+    const live = process.env.PAYPAL_ENV === 'live';
     // Only continue when PayPal itself says the money was captured.
-    if (d.status !== 'COMPLETED' || cap?.status !== 'COMPLETED') return json({ ok: false }, 402);
+    if (d.status !== 'COMPLETED' || !cap) {
+      const reason = d.details?.[0]?.issue || d.name || d.status || ('HTTP ' + r.status);
+      console.error('PayPal capture failed', orderID, JSON.stringify({ status: r.status, name: d.name, details: d.details, debug_id: d.debug_id }));
+      return json({ ok: false, reason: live ? undefined : reason }, 402);
+    }
+    if (cap.status !== 'COMPLETED') {
+      // Money is taken but PayPal is holding it (e.g. review). Do not ship until PayPal releases it.
+      const why = cap.status_details?.reason || cap.status;
+      console.error('PayPal capture pending', orderID, why);
+      await notify('PAYMENT ON HOLD: LUM-' + orderID, 'PayPal took the payment but marked it ' + cap.status + ' (' + why + ').\nCheck it in your PayPal account. Do not ship until it shows Completed.');
+      return json({ ok: true, ref: 'LUM-' + orderID, pending: true, reason: live ? undefined : why });
+    }
     const qty = Math.min(9, Math.max(1, Math.round(Number(cap.amount.value) / PRICE)));
     const s = pu.shipping || {}, a = s.address || {}, ref = 'LUM-' + orderID;
     const cc = a.country_code || '';
     const info = `Order ${ref}\nQty: ${qty}  Paid: ${cap.amount.value} ${cap.amount.currency_code}\nName: ${s.name?.full_name}\nAddress: ${a.address_line_1} ${a.address_line_2 || ''}, ${a.admin_area_2}, ${a.admin_area_1} ${a.postal_code}, ${cc}\nEmail: ${d.payer?.email_address}`;
-    const live = process.env.PAYPAL_ENV === 'live';
     if (!live && process.env.CJ_TEST !== 'yes') {
       await notify('Test order ' + ref + ' (not sent to CJ)', info + '\n\nSandbox payment, so it was not sent to CJ. Set CJ_TEST=yes in Netlify to test the CJ step.');
       return json({ ok: true, ref });
