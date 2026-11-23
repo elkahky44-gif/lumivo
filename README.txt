@@ -14,8 +14,8 @@ LUMIVO STORE: setup (Netlify + PayPal + CJ)
    OWNER_EMAIL        optional, where alerts go
    Redeploy once after adding variables.
 4) Test: use a PayPal sandbox buyer account. Check your alert email and CJ > Orders.
-5) Going live: switch PayPal to Live, create a live app, replace the Client ID in
-   index.html and the PayPal variables in Netlify, set PAYPAL_ENV=live, redeploy.
+5) Going live: switch PayPal to Live, create a live app, put the live Client ID and
+   Secret into the Netlify variables, set PAYPAL_ENV=live, redeploy. No file edits needed.
 
 Notes
 - Each production deploy uses 15 Netlify credits. Test with preview deploys.

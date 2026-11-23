@@ -3,152 +3,374 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Lumivo – Home entertainment, made simple</title>
+<title>Lumivo HY300 – Movie night on any wall</title>
+<meta name="description" content="The Lumivo HY300 is a compact 720p projector with a stand that turns 180°, so you can aim the picture at a wall or the ceiling. $59.99.">
+<meta name="theme-color" content="#0F1522">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#faf6f0;--fg:#1d1a17;--mut:#6f655b;--card:#fff;--acc:#ff7a2f;--line:#eadfce;--stage:#f1e4d0;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15110d;--fg:#f4ebdd;--mut:#b3a290;--card:#211a14;--line:#382d22}}
-:root[data-theme="dark"]{--bg:#15110d;--fg:#f4ebdd;--mut:#b3a290;--card:#211a14;--line:#382d22}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
+:root{
+  --night:#0F1522; --dusk:#18202F; --dusk2:#202A3C; --line:rgba(233,238,245,.12);
+  --screen:#EEF1F5; --haze:#97A2B6; --lamp:#FFD58A; --lamp-ink:#2B1F06;
+  --f:'Bricolage Grotesque',system-ui,-apple-system,'Segoe UI',sans-serif;
+}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;line-height:1.5}
-h1,h2,.logo{font-family:Georgia,'Times New Roman',serif;letter-spacing:-.02em;margin:0}
-nav{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;justify-content:space-between;align-items:center;padding:calc(12px + env(safe-area-inset-top,0px)) 20px 12px;background:var(--bg);border-bottom:1px solid var(--line)}
-.logo{font-size:20px;letter-spacing:.16em;font-weight:700}
-.btn{background:var(--acc);color:#fff;border:0;border-radius:999px;padding:13px 26px;font-size:16px;font-weight:600;cursor:pointer}
-.btn.ghost{background:transparent;color:var(--fg);border:1px solid var(--line)}
-.cartb{background:none;border:1px solid var(--line);color:var(--fg);border-radius:999px;padding:8px 16px;font-size:15px;cursor:pointer}
-.scene{height:260vh;position:relative}
-.sticky{position:sticky;top:0;height:100svh;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--stage);color:#1d1a17;padding-top:56px}
-.cap{position:absolute;top:calc(86px + env(safe-area-inset-top,0px));left:0;right:0;text-align:center;padding:0 24px;transition:opacity .4s,transform .4s}
-.cap h1{font-size:clamp(34px,9vw,70px);line-height:1.05}
-.cap p{margin:10px auto 18px;max-width:420px;color:#6f655b}
-.rig{position:relative;width:min(76vw,500px);margin-top:24vh;transform:rotate(var(--r,10deg));transition:transform .1s linear}
-.rig img{width:100%;display:block;mix-blend-mode:multiply;position:relative;z-index:2}
-.beam{position:absolute;right:82%;top:0;width:90vw;height:55vw;max-height:70vh;transform-origin:100% 50%;transform:translateY(-4%) rotate(25deg);background:linear-gradient(to left,rgba(255,206,130,.95),rgba(255,206,130,0));clip-path:polygon(100% 46%,0 0,0 100%,100% 54%);opacity:var(--b,.6);z-index:1}
-.hint{position:absolute;bottom:calc(16px + env(safe-area-inset-bottom,0px));font-size:12px;color:#6f655b;letter-spacing:.12em;text-transform:uppercase}
-section{padding:70px 22px;max-width:980px;margin:0 auto}
-h2{font-size:clamp(28px,6vw,42px);line-height:1.1;margin-bottom:8px}
-.sub{color:var(--mut);margin:0 0 26px}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;text-align:center}
-.stats b{display:block;font-family:Georgia,serif;font-size:clamp(26px,7vw,40px)}.stats span{color:var(--mut);font-size:13px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:22px}
-.demo{background:var(--stage);color:#1d1a17;border-radius:26px;overflow:hidden;position:relative;height:340px;display:flex;align-items:center;justify-content:center;margin-bottom:16px}
-.demo .rig{width:230px;margin:0;--r:0deg}
-.demo .beam{height:200px;width:min(80vw,420px)}
-.ctrl{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
-.ctrl input{flex:1;min-width:160px;accent-color:#ff7a2f}
-.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
-.chip{border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:999px;padding:10px 16px;font-size:15px;cursor:pointer}
-.chip.on{background:var(--fg);color:var(--bg);border-color:var(--fg)}
-#res{min-height:72px}
-.specs{width:100%;border-collapse:collapse}.specs td{padding:13px 0;border-bottom:1px solid var(--line)}.specs td:last-child{text-align:right;color:var(--mut)}
-.buy{display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));align-items:center}
-.buy .pic{background:var(--stage);border-radius:22px;padding:18px}.buy img{width:100%;display:block;mix-blend-mode:multiply}
-.price{font-family:Georgia,serif;font-size:46px;font-weight:700;margin:6px 0 10px}
-.qty{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:999px;margin:0 12px 12px 0}.qty button{background:none;border:0;color:var(--fg);font-size:22px;width:44px;height:44px;cursor:pointer}
-.rv{opacity:0;transform:translateY(22px);transition:opacity .6s,transform .6s}.rv.in{opacity:1;transform:none}
-details{border-bottom:1px solid var(--line);padding:14px 0}summary{cursor:pointer;font-weight:600}details p{color:var(--mut);margin:8px 0 0}
-footer{text-align:center;padding:30px 22px 110px;color:var(--mut);font-size:14px}footer a{color:var(--mut);margin:0 10px}
-#drawer{position:fixed;top:0;right:0;bottom:0;width:min(92vw,380px);background:var(--bg);border-left:1px solid var(--line);z-index:40;transform:translateX(105%);transition:transform .3s;padding:calc(20px + env(safe-area-inset-top,0px)) 20px calc(20px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--night);color:var(--screen);font-family:var(--f);font-size:17px;line-height:1.55;font-variation-settings:'opsz' 14;-webkit-font-smoothing:antialiased;padding-bottom:env(safe-area-inset-bottom,0px)}
+a{color:inherit}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--lamp);outline-offset:3px;border-radius:6px}
+img{max-width:100%;display:block}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+
+/* nav */
+nav{position:fixed;inset:0 0 auto;z-index:30;padding-top:env(safe-area-inset-top,0px);background:rgba(15,21,34,.72);backdrop-filter:saturate(140%) blur(14px);-webkit-backdrop-filter:saturate(140%) blur(14px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px;gap:16px}
+.brand{font-weight:700;font-size:21px;letter-spacing:-.01em;text-decoration:none;font-variation-settings:'opsz' 40}
+.brand i{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--lamp);margin-left:3px;box-shadow:0 0 12px var(--lamp);vertical-align:2px}
+.links{display:flex;gap:28px;font-size:15px;color:var(--haze)}
+.links a{text-decoration:none}.links a:hover{color:var(--screen)}
+.cartb{background:none;border:1px solid var(--line);border-radius:999px;padding:8px 16px;font-size:15px;cursor:pointer;display:flex;gap:8px;align-items:center}
+.cartb b{background:var(--lamp);color:var(--lamp-ink);border-radius:999px;min-width:22px;height:22px;display:grid;place-items:center;font-size:13px}
+@media (max-width:720px){.links{display:none}}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:var(--lamp);color:var(--lamp-ink);border:0;border-radius:999px;padding:15px 28px;font-size:16px;font-weight:650;cursor:pointer;text-decoration:none;box-shadow:0 8px 30px -10px rgba(255,213,138,.6);transition:transform .15s,box-shadow .15s}
+.btn:hover{transform:translateY(-1px);box-shadow:0 12px 36px -10px rgba(255,213,138,.75)}
+.btn:active{transform:none}
+.link{background:none;border:0;padding:15px 4px;color:var(--haze);font-size:16px;cursor:pointer;text-decoration:underline;text-underline-offset:4px;text-decoration-color:var(--line)}
+.link:hover{color:var(--screen)}
+
+/* hero */
+.hero{height:210vh;position:relative}
+.stage{position:sticky;top:0;height:100svh;min-height:600px;overflow:hidden;background:
+  radial-gradient(120% 70% at 50% 0%, #1C2537 0%, var(--night) 60%)}
+.wall{position:absolute;left:50%;top:calc(88px + env(safe-area-inset-top,0px));transform:translateX(-50%);width:min(84vw,800px,(100svh - 300px)*1.78);aspect-ratio:16/9;border-radius:4px;background:#05080F;box-shadow:0 0 0 1px rgba(255,255,255,.05)}
+.scene{position:absolute;inset:0;border-radius:4px;overflow:hidden;opacity:var(--lit,.12);
+  background:
+   radial-gradient(18% 32% at 70% 58%, #FFE7B0 0%, rgba(255,214,140,.0) 70%),
+   linear-gradient(180deg,#24345A 0%,#5D5A86 38%,#E59A73 66%,#F6C58A 74%,#3B2C3A 75%,#1C1826 100%)}
+.scene::before,.scene::after{content:"";position:absolute;left:-5%;right:-5%;border-radius:50% 50% 0 0}
+.scene::before{bottom:-30%;height:55%;background:#2A2234;transform:rotate(-3deg)}
+.scene::after{bottom:-40%;height:58%;background:#17131F;left:30%;transform:rotate(4deg)}
+.wall .glow{position:absolute;inset:-8%;border-radius:40px;background:radial-gradient(closest-side,rgba(255,213,138,.35),transparent);opacity:var(--lit,.12);filter:blur(30px);z-index:-1}
+.title{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:clamp(18px,4vw,44px);text-shadow:0 2px 24px rgba(0,0,0,.45)}
+.title h1{margin:0;font-size:clamp(34px,7.2vw,84px);line-height:.98;letter-spacing:-.035em;font-weight:700;font-variation-settings:'opsz' 96;max-width:12ch}
+.title p{margin:12px 0 0;font-size:clamp(14px,1.6vw,18px);color:rgba(238,241,245,.86);max-width:42ch}
+.beam{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:var(--beam,.25);mix-blend-mode:screen}
+.pool{position:absolute;right:max(3vw,calc(50% - 600px));bottom:-9vh;width:min(40vw,470px);aspect-ratio:1;border-radius:50%;display:grid;place-items:center;
+  background:radial-gradient(60% 60% at 46% 42%,#FFFFFF 0%,#F1F3F7 55%,#DCE1E9 100%);
+  box-shadow:0 0 0 1px rgba(255,255,255,.35),0 0 90px -10px rgba(255,213,138,.35),0 40px 90px -30px rgba(0,0,0,.7)}
+.pool img{width:72%;height:auto;mix-blend-mode:multiply;transform:translate(-2%,-3%)}
+.buybar{position:absolute;left:max(24px,calc(50% - 400px));bottom:calc(40px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:14px;max-width:340px}
+.buybar .price{font-size:15px;color:var(--haze)}
+.buybar .price b{display:block;color:var(--screen);font-size:30px;letter-spacing:-.02em;font-weight:650;font-variation-settings:'opsz' 60}
+.buybar .row{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.cue{position:absolute;left:50%;transform:translateX(-50%);bottom:12px;font-size:13px;color:var(--haze);opacity:var(--cue,1)}
+@media (max-width:720px){
+  .wall{width:92vw;top:calc(80px + env(safe-area-inset-top,0px))}
+  .pool{width:64vw;right:-8vw;bottom:-6vh}
+  .buybar{left:20px;bottom:calc(28px + env(safe-area-inset-bottom,0px));max-width:56vw}
+  .buybar .btn{padding:14px 22px}
+  .buybar .link{display:none}
+  .cue{display:none}
+}
+
+/* sections */
+section{padding:112px 0}
+@media (max-width:720px){section{padding:80px 0}}
+.sec-h{font-size:clamp(30px,4.6vw,52px);line-height:1.05;letter-spacing:-.03em;font-weight:650;margin:0 0 16px;font-variation-settings:'opsz' 72;max-width:16ch}
+.lede{color:var(--haze);font-size:18px;max-width:46ch;margin:0}
+.facts{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.facts div{padding:28px 24px 28px 0}
+.facts dt{color:var(--haze);font-size:14px}
+.facts dd{margin:4px 0 0;font-size:22px;font-weight:600;letter-spacing:-.01em}
+@media (max-width:720px){.facts{grid-template-columns:1fr 1fr}.facts div{padding:20px 12px 20px 0}}
+
+.split{display:grid;grid-template-columns:1fr 1.15fr;gap:64px;align-items:center}
+@media (max-width:860px){.split{grid-template-columns:1fr;gap:36px}}
+
+/* aim demo */
+.room{position:relative;aspect-ratio:4/3;border-radius:24px;overflow:hidden;background:linear-gradient(180deg,#141B2A,#0C111C);border:1px solid var(--line)}
+.room .ceil{position:absolute;left:12%;right:12%;top:0;height:10px;background:#1F2839}
+.room .wallr{position:absolute;right:0;top:10px;bottom:56px;width:12px;background:#1F2839}
+.room .shelf{position:absolute;left:8%;width:30%;bottom:56px;height:8px;border-radius:3px;background:#2A3448}
+.room .floor{position:absolute;left:0;right:0;bottom:0;height:56px;background:#121826;border-top:1px solid var(--line)}
+.room .pic{position:absolute;background:linear-gradient(180deg,#5D5A86,#E59A73 70%,#2A2234 71%);box-shadow:0 0 40px rgba(255,213,138,.35);transition:opacity .25s;border-radius:2px}
+.room .onwall{right:12px;top:22%;width:10px;height:38%;opacity:0;box-shadow:-10px 0 50px rgba(255,213,138,.35)}
+.room .onceil{top:10px;left:46%;width:36%;height:8px;opacity:0;box-shadow:0 10px 50px rgba(255,213,138,.35)}
+.proj{position:absolute;left:18%;bottom:64px;width:74px;height:74px}
+.proj .head{position:absolute;inset:0;transform-origin:50% 62%;transform:rotate(var(--a,0deg));transition:transform .15s}
+.ray{position:absolute;left:50%;top:44%;height:0;width:0;transform-origin:0 0}
+.ray::before{content:"";position:absolute;left:0;top:-90px;width:min(64vw,520px);height:180px;background:linear-gradient(90deg,rgba(255,213,138,.55),rgba(255,213,138,0));clip-path:polygon(0 47%,100% 0,100% 100%,0 53%)}
+.ctrl{margin-top:20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+input[type=range]{flex:1;min-width:180px;accent-color:#FFD58A;height:32px}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:4px;gap:4px;background:var(--dusk)}
+.seg button{border:0;background:none;padding:9px 16px;border-radius:999px;cursor:pointer;color:var(--haze);font-size:15px}
+.seg button[aria-pressed=true]{background:var(--screen);color:var(--night)}
+.note{color:var(--haze);font-size:15px;margin:14px 0 0;min-height:1.5em}
+
+/* room fit */
+.fit{background:var(--dusk);border-radius:28px;padding:clamp(24px,5vw,56px)}
+.tv{aspect-ratio:16/9;border-radius:6px;position:relative;overflow:hidden;transition:background .4s}
+.tv .scene{opacity:1;transition:filter .4s}
+.fit[data-k=dark] .tv{background:#05080F}
+.fit[data-k=dim] .tv{background:#232A38}.fit[data-k=dim] .tv .scene{filter:contrast(.8) brightness(1.05) saturate(.85)}
+.fit[data-k=bright] .tv{background:#9AA3B2}.fit[data-k=bright] .tv .scene{filter:contrast(.38) brightness(1.5) saturate(.4);opacity:.75}
+.verdict{font-size:20px;margin:18px 0 0;max-width:40ch}
+.verdict b{font-weight:650}
+
+/* specs */
+.specs{display:grid;grid-template-columns:1fr 1fr;gap:0 64px;margin-top:40px}
+.specs div{display:flex;justify-content:space-between;gap:16px;padding:16px 0;border-bottom:1px solid var(--line)}
+.specs dt{color:var(--haze)}.specs dd{margin:0;text-align:right}
+@media (max-width:720px){.specs{grid-template-columns:1fr}}
+.small{color:var(--haze);font-size:14px;margin-top:18px;max-width:60ch}
+
+/* buy */
+.buy{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+@media (max-width:860px){.buy{grid-template-columns:1fr;gap:28px}}
+.plate{background:radial-gradient(80% 80% at 50% 45%,#fff,#DDE2EA);border-radius:32px;padding:8%}
+.plate img{mix-blend-mode:multiply}
+.buy h2{font-size:clamp(28px,4vw,44px);line-height:1.05;letter-spacing:-.03em;margin:0 0 10px;font-weight:650;font-variation-settings:'opsz' 72}
+.big{font-size:44px;font-weight:650;letter-spacing:-.03em;margin:8px 0 6px;font-variation-settings:'opsz' 80}
+.qty{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:999px;margin-right:12px}
+.qty button{background:none;border:0;width:46px;height:50px;font-size:20px;cursor:pointer}
+.qty span{min-width:20px;text-align:center}
+.acts{display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin:24px 0 28px}
+.trust{list-style:none;padding:0;margin:0;display:grid;gap:12px;color:var(--haze);font-size:15px}
+.trust li{display:flex;gap:12px;align-items:center}
+.trust svg{flex:none;width:20px;height:20px;stroke:var(--lamp);fill:none;stroke-width:1.6}
+
+/* faq */
+.faq details,.faq .sec-h{max-width:760px}
+details{border-bottom:1px solid var(--line)}
+summary{list-style:none;cursor:pointer;padding:22px 40px 22px 0;font-size:19px;font-weight:550;position:relative}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"";position:absolute;right:6px;top:50%;width:12px;height:12px;margin-top:-6px;
+  background:linear-gradient(var(--screen),var(--screen)) center/12px 1.6px no-repeat,linear-gradient(var(--screen),var(--screen)) center/1.6px 12px no-repeat;transition:transform .2s}
+details[open] summary::after{transform:rotate(45deg)}
+details p{margin:0 0 22px;color:var(--haze);max-width:60ch}
+
+footer{border-top:1px solid var(--line);padding:48px 0 calc(120px + env(safe-area-inset-bottom,0px));color:var(--haze);font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
+footer nav{position:static;background:none;border:0;backdrop-filter:none;-webkit-backdrop-filter:none;display:flex;gap:22px;flex-wrap:wrap;padding:0}
+footer a{text-decoration:none}footer a:hover{color:var(--screen)}
+
+/* drawer */
+.veil{position:fixed;inset:0;background:rgba(5,8,15,.6);opacity:0;pointer-events:none;transition:opacity .25s;z-index:39}
+.veil.on{opacity:1;pointer-events:auto}
+#drawer{position:fixed;top:0;right:0;bottom:0;width:min(92vw,400px);background:var(--dusk);border-left:1px solid var(--line);z-index:40;transform:translateX(104%);transition:transform .3s cubic-bezier(.2,.8,.2,1);padding:calc(20px + env(safe-area-inset-top,0px)) 22px calc(22px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column}
 #drawer.on{transform:none}
-#bar{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:15;background:var(--fg);color:var(--bg);border-radius:18px;padding:10px 12px 10px 18px;display:flex;justify-content:space-between;align-items:center;transform:translateY(130px);transition:transform .3s}
+.dh{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}
+.dh h2{margin:0;font-size:24px;letter-spacing:-.02em;font-weight:650}
+.x{background:none;border:1px solid var(--line);border-radius:999px;width:40px;height:40px;cursor:pointer;font-size:20px;line-height:1}
+#items{flex:1;overflow:auto;color:var(--haze)}
+.line{display:flex;gap:14px;align-items:center;padding-bottom:18px;border-bottom:1px solid var(--line)}
+.line .th{width:76px;height:76px;border-radius:14px;background:radial-gradient(#fff,#DDE2EA);flex:none;padding:6px}
+.line .th img{mix-blend-mode:multiply}
+.line b{color:var(--screen);font-weight:600;display:block}
+.rm{background:none;border:0;color:var(--haze);text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:6px 0;font-size:14px}
+.sub{display:flex;justify-content:space-between;font-weight:600;font-size:18px;margin:16px 0 14px}
+.fine{color:var(--haze);font-size:13px;margin:10px 0 0;text-align:center}
+#pp{min-height:10px}
+
+/* sticky mobile bar */
+#bar{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:25;background:rgba(32,42,60,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--line);border-radius:999px;padding:8px 8px 8px 22px;display:flex;justify-content:space-between;align-items:center;transform:translateY(140%);transition:transform .3s}
 #bar.on{transform:none}
-#toast{position:fixed;left:50%;bottom:90px;transform:translate(-50%,200px);background:#1d1a17;color:#fff;padding:14px 20px;border-radius:14px;font-size:14px;max-width:88vw;transition:transform .3s;z-index:50}#toast.on{transform:translate(-50%,0)}
+#bar .btn{padding:12px 22px;box-shadow:none}
+@media (min-width:861px){#bar{display:none}}
+
+#toast{visibility:hidden;position:fixed;left:50%;top:calc(76px + env(safe-area-inset-top,0px));transform:translate(-50%,-160%);background:var(--screen);color:var(--night);padding:12px 18px;border-radius:999px;font-size:15px;font-weight:550;max-width:90vw;transition:transform .3s;z-index:50}
+#toast.on{transform:translate(-50%,0);visibility:visible}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body>
-<nav><span class="logo">LUMIVO</span><button class="cartb" onclick="dr(1)">Cart (<span id="cc">0</span>)</button></nav>
 
-<div class="scene" id="scene"><div class="sticky">
- <div class="cap" id="c0"><h1>Bring the big picture home.</h1><p>A compact projector for movie nights and everyday viewing.</p><button class="btn" onclick="go('buy')">Shop the HY300 · $59.99</button></div>
- <div class="cap" id="c1" style="opacity:0;transform:translateY(16px)"><h1>Small. Flexible. Yours.</h1><p>A rotating stand lets you aim the picture where it suits your room.</p></div>
- <div class="rig" id="rig"><div class="beam" id="beam"></div><img alt="Lumivo HY300 projector" src="product.jpg"></div>
- <div class="hint">Scroll</div>
-</div></div>
+<nav aria-label="Main"><div class="wrap">
+  <a class="brand" href="#top">Lumivo<i aria-hidden="true"></i></a>
+  <div class="links"><a href="#aim">How it aims</a><a href="#room">Your room</a><a href="#specs">Specs</a><a href="#faq">Questions</a></div>
+  <button class="cartb" onclick="dr(1)" aria-label="Open cart">Cart <b id="cc">0</b></button>
+</div></nav>
 
-<section><div class="stats rv"><div><b>720p</b><span>Native resolution</span></div><div><b>37W</b><span>Rated power</span></div><div><b>180°</b><span>Rotating stand</span></div></div></section>
-
-<section>
- <h2 class="rv">Try the stand</h2><p class="sub rv">Drag to aim the projector, or pick a preset.</p>
- <div class="demo rv"><div class="rig" id="drig"><div class="beam"></div><img alt="" src="product.jpg"></div></div>
- <div class="ctrl rv"><input id="ang" type="range" min="0" max="100" value="30" aria-label="Aim angle"><button class="chip" onclick="aim(25)">Wall</button><button class="chip" onclick="aim(95)">Ceiling</button></div>
- <p class="sub" id="aimt" style="margin-top:12px"></p>
-</section>
-
-<section>
- <h2 class="rv">Will it suit your room?</h2><p class="sub rv">Be honest with yourself: lighting matters most.</p>
- <div class="chips" id="chips"><button class="chip" data-k="dark">Dark room</button><button class="chip" data-k="dim">Curtains drawn</button><button class="chip" data-k="bright">Bright daylight</button></div>
- <div class="card" id="res">Pick your room above.</div>
-</section>
-
-<section>
- <h2 class="rv">Specifications</h2><p class="sub rv">Shown as provided by the supplier.</p>
- <table class="specs rv">
-  <tr><td>Model</td><td>HY300 950S</td></tr><tr><td>Native resolution</td><td>1280 × 720 (720p)</td></tr><tr><td>Power</td><td>37W</td></tr>
-  <tr><td>Plug</td><td>US standard</td></tr><tr><td>Brightness listing</td><td>160 (unit not specified)</td></tr>
- </table>
- <p class="sub" style="margin-top:14px">Picture size and quality depend on distance, surface and ambient light.</p>
-</section>
-
-<section id="buy">
- <div class="buy rv">
-  <div class="pic"><img alt="Lumivo HY300" src="product.jpg"></div>
-  <div>
-   <h2>HY300 Mini Smart Home Projector</h2>
-   <div class="price">$59.99</div>
-   <p class="sub">Plug: <b>US standard</b> · Please check compatibility before ordering.</p>
-   <div class="qty"><button onclick="q(-1)" aria-label="Less">−</button><span id="qn">1</span><button onclick="q(1)" aria-label="More">+</button></div>
-   <button class="btn" id="add" onclick="add()">Add to cart</button>
+<header class="hero" id="top">
+  <div class="stage" id="stage">
+    <svg class="beam" id="beam" aria-hidden="true"><defs><linearGradient id="bg" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FFE4A8" stop-opacity=".95"/><stop offset="1" stop-color="#FFD58A" stop-opacity=".05"/></linearGradient></defs><polygon id="cone" fill="url(#bg)"/></svg>
+    <div class="wall" id="wall">
+      <div class="glow"></div>
+      <div class="scene"></div>
+      <div class="title">
+        <h1>Movie night, on any wall.</h1>
+        <p>A compact projector with a stand that turns 180°. Set it on a shelf, aim it, press play.</p>
+      </div>
+    </div>
+    <div class="pool" id="pool"><img id="pimg" src="product.jpg" alt="Lumivo HY300 projector, white, on its rotating stand" width="560" height="535"></div>
+    <div class="buybar">
+      <div class="price">Lumivo HY300<b>$59.99</b></div>
+      <div class="row"><button class="btn" onclick="add()">Add to cart</button><button class="link" onclick="go('aim')">See how it aims</button></div>
+    </div>
+    <div class="cue" id="cue">Scroll to dim the lights</div>
   </div>
- </div>
-</section>
+</header>
 
-<section>
- <h2 class="rv">Questions</h2>
- <details><summary>Is it bright enough for daytime?</summary><p>It works best in a dim or dark room. In bright daylight the picture will look washed out.</p></details>
- <details><summary>Which apps does it support?</summary><p>It runs a smart system with app support. Availability of individual services can vary and some may need extra setup.</p></details>
- <details><summary>How long does delivery take?</summary><p>Orders ship with tracking from our overseas warehouse. Your estimated delivery time is shown at checkout.</p></details>
- <details><summary>What if I’m not happy with it?</summary><p>Contact us within 30 days of delivery and we’ll arrange a return or refund.</p></details>
-</section>
+<main>
+<div class="wrap"><dl class="facts">
+  <div><dt>Native resolution</dt><dd>720p</dd></div>
+  <div><dt>Stand</dt><dd>Turns 180°</dd></div>
+  <div><dt>Power</dt><dd>37 W</dd></div>
+  <div><dt>Plug</dt><dd>US standard</dd></div>
+</dl></div>
 
-<footer><a href="#">Shipping</a><a href="#">Returns</a><a href="#">Privacy</a><a href="#">Contact</a><p>© 2026 Lumivo</p></footer>
+<section id="aim"><div class="wrap split">
+  <div>
+    <h2 class="sec-h">Point it at the wall, or the ceiling.</h2>
+    <p class="lede">The head tilts on its stand, so you can clear the furniture or watch lying down. Try it here.</p>
+  </div>
+  <div>
+    <div class="room" aria-hidden="true">
+      <div class="ceil"></div><div class="wallr"></div><div class="floor"></div><div class="shelf"></div>
+      <div class="pic onwall" id="onwall"></div><div class="pic onceil" id="onceil"></div>
+      <div class="proj"><div class="head" id="head">
+        <div class="ray"></div>
+        <svg viewBox="0 0 74 74" width="74" height="74"><rect x="8" y="16" width="50" height="30" rx="15" fill="#EEF1F5"/><circle cx="56" cy="31" r="10" fill="#1A2233"/><circle cx="56" cy="31" r="5" fill="#FFD58A"/></svg>
+      </div><svg viewBox="0 0 74 74" width="74" height="74" style="position:absolute;inset:0"><path d="M30 44h14v18H30z" fill="#C9D0DC"/><rect x="18" y="62" width="38" height="8" rx="4" fill="#EEF1F5"/></svg></div>
+    </div>
+    <div class="ctrl">
+      <input id="ang" type="range" min="0" max="100" value="20" aria-label="Tilt angle">
+      <div class="seg" role="group" aria-label="Presets"><button id="pw" aria-pressed="true" onclick="aim(20)">Wall</button><button id="pc" aria-pressed="false" onclick="aim(95)">Ceiling</button></div>
+    </div>
+    <p class="note" id="aimt" aria-live="polite"></p>
+  </div>
+</div></section>
 
-<aside id="drawer"><div style="display:flex;justify-content:space-between;align-items:center"><h2 style="font-size:24px">Your cart</h2><button class="cartb" onclick="dr(0)">Close</button></div>
- <div id="items" style="flex:1;padding-top:20px;color:var(--mut)">Your cart is empty.</div>
- <div style="display:flex;justify-content:space-between;font-weight:600;margin-bottom:12px"><span>Subtotal</span><span id="sub">$0.00</span></div>
- <div id="pp"></div></aside>
-<div id="bar"><span><b>HY300</b> · $59.99</span><button class="btn" onclick="go('buy')">Buy</button></div>
-<div id="toast"></div>
+<section id="room"><div class="wrap">
+  <div class="fit" id="fit" data-k="dark">
+    <div class="split">
+      <div>
+        <h2 class="sec-h">Will it suit your room?</h2>
+        <p class="lede">Light in the room matters more than anything else. Pick the one closest to yours.</p>
+        <div class="seg" role="group" aria-label="Room lighting" style="margin-top:24px" id="seg2">
+          <button aria-pressed="true" data-k="dark">Dark</button><button aria-pressed="false" data-k="dim">Dim</button><button aria-pressed="false" data-k="bright">Daylight</button>
+        </div>
+        <p class="verdict" id="res" aria-live="polite"></p>
+      </div>
+      <div class="tv" aria-hidden="true"><div class="scene"></div></div>
+    </div>
+  </div>
+</div></section>
+
+<section id="specs"><div class="wrap">
+  <h2 class="sec-h">Specifications</h2>
+  <p class="lede">As listed by the manufacturer.</p>
+  <dl class="specs">
+    <div><dt>Model</dt><dd>HY300 950S</dd></div>
+    <div><dt>Native resolution</dt><dd>1280 × 720 (720p)</dd></div>
+    <div><dt>Rated power</dt><dd>37 W</dd></div>
+    <div><dt>Plug</dt><dd>US standard</dd></div>
+    <div><dt>Stand</dt><dd>Rotates 180°</dd></div>
+    <div><dt>Brightness listing</dt><dd>160 (unit not given)</dd></div>
+  </dl>
+  <p class="small">Picture size and sharpness depend on how far it sits from the wall, the surface you project on, and how dark the room is.</p>
+</div></section>
+
+<section id="buy"><div class="wrap buy">
+  <div class="plate"><img src="product.jpg" alt="Lumivo HY300 projector" width="560" height="535" loading="lazy"></div>
+  <div>
+    <h2>Lumivo HY300 mini projector</h2>
+    <div class="big">$59.99</div>
+    <p class="lede" style="font-size:16px">US plug. Check your outlet before ordering.</p>
+    <div class="acts">
+      <div class="qty"><button onclick="q(-1)" aria-label="Decrease quantity">−</button><span id="qn" aria-live="polite">1</span><button onclick="q(1)" aria-label="Increase quantity">+</button></div>
+      <button class="btn" id="add" onclick="add()">Add to cart</button>
+    </div>
+    <ul class="trust">
+      <li><svg viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Secure checkout with PayPal</li>
+      <li><svg viewBox="0 0 24 24"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="17.5" r="1.7"/><circle cx="17" cy="17.5" r="1.7"/></svg>Shipped with tracking</li>
+      <li><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.4-5.7M4 4v4h4"/></svg>30 days to return it</li>
+    </ul>
+  </div>
+</div></section>
+
+<section id="faq"><div class="wrap faq">
+  <h2 class="sec-h">Questions</h2>
+  <details><summary>Is it bright enough for daytime?</summary><p>It works best in a dim or dark room. In bright daylight the picture will look washed out.</p></details>
+  <details><summary>Which apps does it support?</summary><p>It runs a smart system with app support. Availability of individual services can vary, and some may need extra setup.</p></details>
+  <details><summary>How long does delivery take?</summary><p>Orders ship with tracking from our overseas warehouse. You’ll get the tracking number by email once it ships.</p></details>
+  <details><summary>What if I’m not happy with it?</summary><p>Contact us within 30 days of delivery and we’ll arrange a return or refund.</p></details>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+  <span>© 2026 Lumivo</span>
+  <nav aria-label="Policies"><a href="#">Shipping</a><a href="#">Returns</a><a href="#">Privacy</a><a href="#">Contact</a></nav>
+</div></footer>
+
+<div class="veil" id="veil" onclick="dr(0)"></div>
+<aside id="drawer" aria-label="Cart" aria-hidden="true">
+  <div class="dh"><h2>Your cart</h2><button class="x" onclick="dr(0)" aria-label="Close cart">×</button></div>
+  <div id="items">Your cart is empty.</div>
+  <div id="checkout">
+    <div class="sub"><span>Subtotal</span><span id="sub">$0.00</span></div>
+    <div id="pp"></div>
+    <p class="fine">You’ll pay securely on PayPal.</p>
+  </div>
+</aside>
+<div id="bar"><span><b>$59.99</b></span><button class="btn" onclick="add()">Add to cart</button></div>
+<div id="toast" role="status"></div>
 
 <script>
-var $=function(i){return document.getElementById(i)},n=1,cart=0;
-function go(i){$(i).scrollIntoView({behavior:'smooth'})}
-function tt(m){var x=$('toast');x.textContent=m;x.classList.add('on');setTimeout(function(){x.classList.remove('on')},3200)}
+var $=function(i){return document.getElementById(i)},n=1,cart=0,RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+function go(i){$(i).scrollIntoView({behavior:RM?'auto':'smooth'})}
+function tt(m){var x=$('toast');x.textContent=m;x.classList.add('on');clearTimeout(tt.t);tt.t=setTimeout(function(){x.classList.remove('on')},2600)}
 function q(d){n=Math.max(1,Math.min(9,n+d));$('qn').textContent=n}
-function add(){cart+=n;ren();tt('Added to cart');dr(1)}
-function dr(o){$('drawer').classList.toggle('on',!!o)}
-function ren(){pp();$('cc').textContent=cart;$('sub').textContent='$'+(cart*59.99).toFixed(2);
- $('items').innerHTML=cart?'<div class="card" style="color:var(--fg)"><b>HY300 Mini Smart Home Projector</b><br><span style="color:var(--mut)">US standard · $59.99 × '+cart+'</span><br><button class="chip" style="margin-top:10px" onclick="cart=0;ren()">Remove</button></div>':'Your cart is empty.'}
-var sc=$('scene'),rig=$('rig'),beam=$('beam'),bar=$('bar'),caps=[$('c0'),$('c1')];
-function upd(){var r=sc.getBoundingClientRect(),h=sc.offsetHeight-innerHeight,p=Math.min(1,Math.max(0,-r.top/h));
- rig.style.setProperty('--r',(14-p*32)+'deg');beam.style.setProperty('--b',(.45+.5*Math.sin(p*Math.PI)).toFixed(2));
- caps.forEach(function(c,i){var on=(p<.5?0:1)===i;c.style.opacity=on?1:0;c.style.transform=on?'none':'translateY(16px)';c.style.pointerEvents=on?'auto':'none'});
- bar.classList.toggle('on',r.bottom<innerHeight*.5&&$('buy').getBoundingClientRect().top>innerHeight)}
-addEventListener('scroll',upd,{passive:true});addEventListener('resize',upd);upd();
-var drig=$('drig'),ang=$('ang');
-function sh(){var v=+ang.value;drig.style.setProperty('--r',(18-v*.9)+'deg');$('aimt').textContent=v>60?'Ceiling: great for watching from bed.':v>35?'Angled up: clears furniture and lifts the picture.':'Wall: the standard living-room setup.'}
+function add(){cart=Math.min(9,cart+n);ren();dr(1)}
+function dr(o){$('drawer').classList.toggle('on',!!o);$('veil').classList.toggle('on',!!o);$('drawer').setAttribute('aria-hidden',o?'false':'true');if(o)$('drawer').querySelector('.x').focus()}
+addEventListener('keydown',function(e){if(e.key==='Escape')dr(0)});
+function ren(){$('cc').textContent=cart;$('sub').textContent='$'+(cart*59.99).toFixed(2);$('checkout').style.display=cart?'':'none';pp();
+ $('items').innerHTML=cart?'<div class="line"><div class="th"><img src="product.jpg" alt=""></div><div style="flex:1"><b>Lumivo HY300</b>US plug · $59.99 × '+cart+'<br><button class="rm" onclick="cart=0;ren()">Remove</button></div></div>':'Your cart is empty.'}
+ren();
+
+/* hero: scroll dims the room and lights the screen */
+var hero=document.querySelector('.hero'),stage=$('stage'),wall=$('wall'),pimg=$('pimg'),cone=$('cone'),svg=$('beam'),grad=document.getElementById('bg'),bar=$('bar');
+function hero_(){
+ var r=hero.getBoundingClientRect(),h=hero.offsetHeight-innerHeight,p=RM?1:Math.min(1,Math.max(0,-r.top/h));
+ stage.style.setProperty('--lit',(.14+.86*p).toFixed(3));stage.style.setProperty('--beam',(.18+.5*p).toFixed(3));stage.style.setProperty('--cue',p>.05?0:1);
+ var s=stage.getBoundingClientRect(),w=wall.getBoundingClientRect(),i=pimg.getBoundingClientRect();
+ var lx=i.left-s.left+i.width*.2,ly=i.top-s.top+i.height*.285;
+ var L=w.left-s.left,T=w.top-s.top,R=L+w.width,B=T+w.height;
+ svg.setAttribute('viewBox','0 0 '+s.width+' '+s.height);
+ cone.setAttribute('points',[lx,ly,L,B,L,T,R,T,R,B].join(' '));
+ grad.setAttribute('x1',lx);grad.setAttribute('y1',ly);grad.setAttribute('x2',(L+R)/2);grad.setAttribute('y2',(T+B)/2);
+ bar.classList.toggle('on',r.bottom<innerHeight*.4&&$('buy').getBoundingClientRect().top>innerHeight*.9);
+}
+addEventListener('scroll',hero_,{passive:true});addEventListener('resize',hero_);pimg.addEventListener('load',hero_);hero_();
+
+/* aim demo */
+var ang=$('ang');
+function sh(){var v=+ang.value,a=-(v*.9);$('head').style.setProperty('--a',a+'deg');
+ var c=v>60;$('onceil').style.opacity=c?Math.min(1,(v-60)/25):0;$('onwall').style.opacity=c?0:Math.max(.25,1-v/70);
+ $('pw').setAttribute('aria-pressed',v<=60);$('pc').setAttribute('aria-pressed',v>60);
+ $('aimt').textContent=v>60?'Ceiling: watch from bed or the sofa without a screen in the way.':v>30?'Tilted up: the picture clears furniture and sits higher on the wall.':'Wall: the usual living-room setup.'}
 function aim(v){ang.value=v;sh()}ang.oninput=sh;sh();
-var msg={dark:'<b>Great fit.</b> A dark room gives the best contrast and the most vivid picture.',dim:'<b>Good fit.</b> With curtains drawn you’ll get a watchable picture. Expect it to look best after dusk.',bright:'<b>Not ideal.</b> In bright daylight the picture will look washed out. We’d rather you know before you buy.'};
-document.querySelectorAll('#chips .chip').forEach(function(c){c.onclick=function(){document.querySelectorAll('#chips .chip').forEach(function(x){x.classList.remove('on')});c.classList.add('on');$('res').innerHTML=msg[c.dataset.k]}});
-var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.15});
-document.querySelectorAll('.rv').forEach(function(el){io.observe(el)});
+
+/* room fit */
+var msg={dark:'<b>Great fit.</b> A dark room gives the most contrast and the richest color.',dim:'<b>Good fit.</b> With the curtains drawn, the picture is watchable, and it looks best after sunset.',bright:'<b>Not a good fit.</b> In daylight the picture looks washed out. Better to know now.'};
+var fit=$('fit');
+function room(k){fit.dataset.k=k;$('res').innerHTML=msg[k];document.querySelectorAll('#seg2 button').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.k===k)})}
+document.querySelectorAll('#seg2 button').forEach(function(b){b.onclick=function(){room(b.dataset.k)}});room('dark');
+
+/* PayPal */
 var ppDone=false;
 function pp(){if(ppDone||!window.paypal||!cart)return;ppDone=true;
  paypal.Buttons({
+  style:{layout:'vertical',color:'gold',shape:'pill',label:'paypal'},
   createOrder:function(){return fetch('/api/create-order',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({qty:cart})}).then(function(r){return r.json()}).then(function(d){if(!d.id)throw new Error('no id');return d.id})},
   onApprove:function(d){return fetch('/api/capture-order',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({orderID:d.orderID})}).then(function(r){return r.json()}).then(function(r){
-   if(r.ok){cart=0;$('cc').textContent=0;$('sub').textContent='$0.00';$('items').innerHTML='<div class="card" style="color:var(--fg)"><b>Thank you!</b><br>Order '+r.ref+' is confirmed. PayPal will email your receipt, and we will email tracking once it ships.</div>'}else tt('Payment problem. Please contact us.')})},
-  onError:function(){tt('Checkout error. Please try again.')}
+   if(r.ok){cart=0;$('cc').textContent=0;$('checkout').style.display='none';$('items').innerHTML='<div class="line" style="border:0;display:block;color:var(--screen)"><b style="font-size:20px;margin-bottom:6px">Thank you. Your order is confirmed.</b><span style="color:var(--haze)">Order '+r.ref+'. PayPal will email your receipt, and we’ll email tracking once it ships.</span></div>'}else tt('Your payment didn’t go through. Please try again or contact us.')})},
+  onError:function(){tt('Checkout couldn’t start. Please try again.')}
  }).render('#pp')}
 fetch('/api/config').then(function(r){return r.json()}).then(function(c){var x=document.createElement('script');x.src='https://www.paypal.com/sdk/js?client-id='+c.id+'&currency=USD&components=buttons&locale=en_US';x.onload=pp;document.head.appendChild(x)}).catch(function(){});
 </script>
