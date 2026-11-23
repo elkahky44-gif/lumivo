@@ -8,7 +8,8 @@ LUMIVO STORE: setup (Netlify + PayPal + CJ)
    PAYPAL_SECRET      your sandbox Secret   (never put it in a file or in chat)
    PAYPAL_ENV         sandbox   (change to live when going live)
    CJ_API_KEY         from CJ > API > Add API (type API Key)
-   CJ_VID             the CJ variant id of the HY300 950S AU/US variant (CJ product page / API)
+   CJ_TEST            optional, set to yes to send SANDBOX test orders to CJ (delete them in CJ after)
+   CJ_VID             optional, the code finds the US-plug variant of CJYD273577104DW itself
    CJ_LOGISTIC        optional, default "CJPacket SP Sensitive" (must match a CJ logistics name)
    RESEND_API_KEY     optional, from resend.com, for email alerts
    OWNER_EMAIL        optional, where alerts go
