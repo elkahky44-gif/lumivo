@@ -13,7 +13,7 @@ export default async (req) => {
       body: JSON.stringify({
         intent: 'CAPTURE',
         purchase_units: [{ description: 'Lumivo HY300 projector x' + n, amount: { currency_code: 'USD', value: (PRICE * n).toFixed(2) } }],
-        payment_source: { paypal: { experience_context: { shipping_preference: 'GET_FROM_FILE', user_action: 'PAY_NOW' } } }
+        payment_source: { paypal: { experience_context: { shipping_preference: 'GET_FROM_FILE', user_action: 'PAY_NOW', locale: 'en-US' } } }
       })
     });
     const d = await r.json();

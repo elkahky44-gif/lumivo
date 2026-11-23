@@ -150,7 +150,7 @@ function pp(){if(ppDone||!window.paypal||!cart)return;ppDone=true;
    if(r.ok){cart=0;$('cc').textContent=0;$('sub').textContent='$0.00';$('items').innerHTML='<div class="card" style="color:var(--fg)"><b>Thank you!</b><br>Order '+r.ref+' is confirmed. PayPal will email your receipt, and we will email tracking once it ships.</div>'}else tt('Payment problem. Please contact us.')})},
   onError:function(){tt('Checkout error. Please try again.')}
  }).render('#pp')}
-fetch('/api/config').then(function(r){return r.json()}).then(function(c){var x=document.createElement('script');x.src='https://www.paypal.com/sdk/js?client-id='+c.id+'&currency=USD&components=buttons';x.onload=pp;document.head.appendChild(x)}).catch(function(){});
+fetch('/api/config').then(function(r){return r.json()}).then(function(c){var x=document.createElement('script');x.src='https://www.paypal.com/sdk/js?client-id='+c.id+'&currency=USD&components=buttons&locale=en_US';x.onload=pp;document.head.appendChild(x)}).catch(function(){});
 </script>
 </body>
 </html>
