@@ -1,4 +1,6 @@
 [build]
   publish = "public"
+  # Skip Netlify builds unless the site or its Netlify functions changed (saves credits).
+  ignore = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF -- public netlify"
 [functions]
   directory = "netlify/functions"
