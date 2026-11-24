@@ -11,12 +11,29 @@ async function cjToken() {
   return cached.token;
 }
 // Finds the US-plug variant of the product, so the order matches what the store sells.
+// CJ has several lookups; try them in turn because some products only answer to one.
 async function usVariant(token) {
-  const r = await (await fetch(CJ + 'product/query?productSku=' + encodeURIComponent(PRODUCT_SKU), { headers: { 'CJ-Access-Token': token } })).json();
-  const vs = r.data?.variants || [];
+  const get = async (path) => (await fetch(CJ + path, { headers: { 'CJ-Access-Token': token } })).json();
+  const asList = (d) => Array.isArray(d) ? d : (d?.variants || d?.list || []);
+  const tried = [];
+  let vs = [];
+  const q = encodeURIComponent(PRODUCT_SKU);
+  for (const path of ['product/variant/query?productSku=' + q, 'product/query?productSku=' + q]) {
+    const r = await get(path); vs = asList(r.data); tried.push(path.split('?')[0] + ': ' + (vs.length ? vs.length + ' variants' : r.message));
+    if (vs.length) break;
+  }
+  if (!vs.length) {
+    const r = await get('product/listV2?keyWord=' + q + '&page=1&size=20');
+    const items = (r.data?.content || []).flatMap((c) => c.productList || []);
+    const hit = items.find((i) => i.sku === PRODUCT_SKU || i.spu === PRODUCT_SKU) || (items.length === 1 ? items[0] : null);
+    tried.push('listV2: ' + (hit ? 'found ' + hit.id : items.length + ' results, ' + r.message));
+    if (hit) { const v = await get('product/variant/query?pid=' + encodeURIComponent(hit.id)); vs = asList(v.data); tried.push('variants by pid: ' + (vs.length || v.message)); }
+  }
   const label = (v) => [v.variantKey, v.variantNameEn, v.variantSku].filter(Boolean).join(' / ');
   const us = vs.filter((v) => /(^|[^a-z])us([^a-z]|$)/i.test(label(v)));
-  if (us.length !== 1) throw new Error('Could not pick the US-plug variant automatically. Set CJ_VID in Netlify to one of: ' + vs.map((v) => v.vid + ' = ' + label(v)).join('; ') + (vs.length ? '' : ' (no variants found: ' + r.message + ')'));
+  if (us.length !== 1) throw new Error(vs.length
+    ? 'Could not pick the US-plug variant. Set CJ_VID in Netlify to one of: ' + vs.map((v) => v.vid + ' = ' + label(v)).join('; ')
+    : 'CJ could not find product ' + PRODUCT_SKU + ' (' + tried.join(' | ') + ')');
   return us[0].vid;
 }
 export default async (req) => {
