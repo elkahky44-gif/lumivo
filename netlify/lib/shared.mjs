@@ -8,8 +8,15 @@ export async function ppToken() {
   if (!d.access_token) throw new Error('PayPal auth failed');
   return d.access_token;
 }
+// Emails the store owner. Returns a short status so test mode can show whether it worked.
 export async function notify(subject, text) {
   console.log(subject, '\n', text);
-  if (!process.env.RESEND_API_KEY || !process.env.OWNER_EMAIL) return;
-  await fetch('https://api.resend.com/emails', { method: 'POST', headers: { Authorization: 'Bearer ' + process.env.RESEND_API_KEY, 'Content-Type': 'application/json' }, body: JSON.stringify({ from: 'Lumivo <onboarding@resend.dev>', to: [process.env.OWNER_EMAIL], subject, text }) }).catch(() => {});
+  if (!process.env.RESEND_API_KEY || !process.env.OWNER_EMAIL) return 'email skipped: RESEND_API_KEY or OWNER_EMAIL not set';
+  try {
+    const r = await fetch('https://api.resend.com/emails', { method: 'POST', headers: { Authorization: 'Bearer ' + process.env.RESEND_API_KEY, 'Content-Type': 'application/json' }, body: JSON.stringify({ from: 'Lumivo Orders <onboarding@resend.dev>', to: [process.env.OWNER_EMAIL], subject, text }) });
+    if (r.ok) return 'email sent';
+    const d = await r.json().catch(() => ({}));
+    console.error('Resend failed', r.status, JSON.stringify(d));
+    return 'email failed: ' + r.status + ' ' + (d.message || '');
+  } catch (e) { console.error('Resend error', e); return 'email failed: ' + e.message; }
 }

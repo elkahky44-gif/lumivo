@@ -63,10 +63,10 @@ export default async (req) => {
     const cc = a.country_code || '';
     const info = `Order ${ref}\nQty: ${qty}  Paid: ${cap.amount.value} ${cap.amount.currency_code}\nName: ${s.name?.full_name}\nAddress: ${a.address_line_1} ${a.address_line_2 || ''}, ${a.admin_area_2}, ${a.admin_area_1} ${a.postal_code}, ${cc}\nEmail: ${d.payer?.email_address}`;
     if (!live && process.env.CJ_TEST !== 'yes') {
-      await notify('Test order ' + ref + ' (not sent to CJ)', info + '\n\nSandbox payment, so it was not sent to CJ. Set CJ_TEST=yes in Netlify to test the CJ step.');
-      return json({ ok: true, ref });
+      const mail = await notify('Test order ' + ref + ' (not sent to CJ)', info + '\n\nSandbox payment, so it was not sent to CJ. Set CJ_TEST=yes in Netlify to test the CJ step.');
+      return json({ ok: true, ref, cj: 'Not sent to CJ (test mode). ' + mail });
     }
-    let cjNote = '';
+    let cjNote = '', mailNote = '';
     try {
       if (!process.env.CJ_API_KEY) throw new Error('CJ_API_KEY is not set in Netlify');
       const token = await cjToken();
@@ -88,12 +88,12 @@ export default async (req) => {
         })
       })).json();
       if (!o.result) throw new Error('CJ order rejected: ' + o.message);
-      cjNote = 'Sent to CJ: ' + JSON.stringify(o.data);
-      await notify((live ? 'New paid order ' : 'TEST order ') + ref + ': created at CJ', info + '\n\nCJ variant: ' + vid + '\nCJ order: ' + JSON.stringify(o.data) + (live ? '\nOpen CJ > Orders and pay it if it is awaiting payment.' : '\nThis was a test. Delete it in CJ > Orders and do not pay it.'));
+      cjNote = 'Sent to CJ: ' + (o.data?.orderId || 'ok');
+      mailNote = await notify((live ? 'New paid order ' : 'TEST order ') + ref + ': created at CJ', info + '\n\nCJ variant: ' + vid + '\nCJ order: ' + JSON.stringify(o.data) + (live ? '\nOpen CJ > Orders and pay it if it is awaiting payment.' : '\nThis was a test. Delete it in CJ > Orders and do not pay it.'));
     } catch (e) {
       cjNote = 'Not sent to CJ: ' + e.message;
-      await notify('ACTION NEEDED: order ' + ref + ' not sent to CJ', info + '\n\nReason: ' + e.message + (live ? '\nPlace this order in CJ by hand.' : ''));
+      mailNote = await notify('ACTION NEEDED: order ' + ref + ' not sent to CJ', info + '\n\nReason: ' + e.message + (live ? '\nPlace this order in CJ by hand.' : ''));
     }
-    return json({ ok: true, ref, cj: live ? undefined : cjNote });
+    return json({ ok: true, ref, cj: live ? undefined : cjNote + ' | ' + mailNote });
   } catch (e) { console.error(e); return json({ ok: false }, 500); }
 };
